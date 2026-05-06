@@ -9,21 +9,15 @@ graph = {
 'A': ['E']
 }
 
-def dfs(graph , start):
-    order = []
-    visited = set()
-    queue = []
-
-    queue.append(start)
+def dfs(graph , start , visited , order):
     visited.add(start)
+    order.append(start)
+    for neighbour in graph[start]:
+        if neighbour not in visited:
+            dfs(graph , neighbour , visited , order)
 
-    while queue:
-        current = queue.pop(0)
-        order.append(current)
-        for neighbour in graph[current]:
-            if neighbour not in visited:
-                visited.add(neighbour)
-                queue.append(neighbour)
-    return order
-
-print(dfs(graph, 'M'))
+order =[]
+visited = set()
+dfs(graph , 'M',visited , order)
+print(order)
+            
